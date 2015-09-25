@@ -1,0 +1,15 @@
+html
+  head
+  body
+    form(method="POST" action="/user/auth?redir=/user/login")
+      table
+        tr
+          td username
+          td
+            input(type="text" name="username")
+        tr
+          td password
+          td
+            input(type="text" name="password")
+          td
+            input(type="submit")

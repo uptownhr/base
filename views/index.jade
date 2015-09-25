@@ -1,3 +1,6 @@
 html
   body
-    p hello world
+    if user
+      p hello #{user.username}
+    else
+      p hello world

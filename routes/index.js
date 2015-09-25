@@ -4,7 +4,8 @@
 module.exports = function(router){
   router
     .get('/', function* (next){
-      this.render('index')
+      let user = this.req.user
+      this.render('index', {user})
     })
 
   return router

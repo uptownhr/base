@@ -1,5 +1,5 @@
 "use strict"
-
+const passport = require('koa-passport')
 const User = require('../models/User')
 const koaBody = require('koa-body')()
 
@@ -25,6 +25,24 @@ module.exports = function(router){
       }
 
       this.redirect('/user')
+    })
+
+  //handle login
+  router
+    .get('/login', function *(next){
+      this.render('user/login')
+    })
+    .post('/auth', koaBody, function *(next){
+      var ctx = this
+      yield passport.authenticate('local', function *(err, user, info){
+        if(err){
+          ctx.redirect( ctx.request.query.redir )
+        }else{
+          ctx.req.logIn(user, function(){
+            ctx.redirect('/')
+          })
+        }
+      }).call(this, next)
     })
 
   return router
